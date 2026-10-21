@@ -1,0 +1,13 @@
+The datasets in this folder (every .csv and .json file under data/) are released under the
+Creative Commons Attribution 4.0 International License (CC BY 4.0).
+
+You are free to share and adapt the data for any purpose, including commercially, provided you
+give appropriate credit ("US Solar Trade Tracker, github.com/builtbyaarya/us-solar-trade-tracker,
+CC BY 4.0"), link to the license, and indicate if changes were made.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+The underlying facts come from public US government notices (Federal Register, Department of
+Commerce, US International Trade Commission) and public company announcements; those sources
+are cited row by row and are not themselves subject to this license. The code in this repository
+is separately licensed under the MIT License (see ../LICENSE).
