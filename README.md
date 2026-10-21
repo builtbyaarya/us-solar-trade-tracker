@@ -1,0 +1,100 @@
+# US Solar Trade Tracker
+
+An open, sourced dataset of two things that decide whether a solar or battery factory in the United States makes sense:
+
+1. **Duty rates** on imported crystalline silicon solar cells and modules: every antidumping (AD) and countervailing duty (CVD) rate by case, country, company, stage and date, with AD and CVD kept separate and every row linked to the Federal Register notice, Commerce fact sheet or ITC document it comes from. Section 201 and 301 tariff layers are included as their own rows so the full stack is visible.
+2. **US manufacturing capacity** for solar and batteries by stage (polysilicon, ingot, wafer, cell, module, battery cells and packs) with each facility's announced size, status and status date, including pauses, closures and cancellations.
+
+Maintained by a mechanical engineering student who got tired of rebuilding the same spreadsheet. Updated twice a week by a scheduled job that re-reads the official pages in `docs/watchlist.txt`; nothing is added without a public source.
+
+> **Not legal or trade advice.** Duty rates change through reviews, orders and court remands, and announced capacity is often not built. Verify every number against its `source_url` before you rely on it. See [DISCLAIMER.md](DISCLAIMER.md).
+
+## Files
+
+| Path | What it is |
+|---|---|
+| `data/duties.csv` | One row per rate: case, country, company, AD or CVD, rate, stage, dates, source |
+| `data/factories.csv` | One row per facility and stage: company, location, stage, capacity, status, dates, investment, jobs, source |
+| `data/tracker.json` | Both tables plus a per-country "all others" summary and operating capacity by stage, rebuilt by `scripts/build.py` |
+| `docs/schema.md` | Column definitions and allowed values |
+| `docs/cases.md` | Plain-English timeline of each case and what is still pending |
+| `docs/factories.md` | The capacity picture, known gaps and data-quality flags |
+| `docs/watchlist.txt` | The official pages the updater re-checks |
+| `scripts/validate.py` | Checks columns, allowed values, dates and that every row has a source |
+| `scripts/build.py` | Rebuilds `tracker.json` and the summary tables below |
+| `scripts/check_sources.py` | Hashes the watchlist pages; prints `NO CHANGE` when nothing moved |
+
+## Summary
+
+<!-- summary:start -->
+_Summary generated 2026-10-21 from the CSVs; the CSVs are the source of truth._
+
+### Duty rates (latest stage on file, all-others and country-wide rows)
+
+| Case | Country | Type | Row | Rate | Stage | Date | Source |
+|---|---|---|---|---|---|---|---|
+| Section 201 safeguard (2018-2026) | All countries (global safeguard; some developing countries exempt) | Section 201 | All importers | 14.0% | order | 2022-02-04 | [source](https://www.govinfo.gov/link/fr/87/7357) |
+| Section 301 (China tech-transfer action) | China | Section 301 | All importers | 50% | final | 2024-09-18 | [source](https://www.govinfo.gov/link/fr/89/76581) |
+| Solar I (China 2012) | China | AD | PRC-wide entity | 249.96% | order | 2012-12-03 | [source](https://www.govinfo.gov/link/fr/77/73018) |
+| Solar I (China 2012) | China | CVD | All others | 15.24% | order | 2012-12-03 | [source](https://www.govinfo.gov/link/fr/77/73017) |
+| Solar II (China/Taiwan 2015) | China | AD | PRC-wide entity | 165.04% | order | 2015-02-10 | [source](https://www.govinfo.gov/content/pkg/FR-2015-02-18/html/2015-03183.htm) |
+| Solar II (China/Taiwan 2015) | China | CVD | All others | 38.43% | order | 2015-02-10 | [source](https://www.govinfo.gov/content/pkg/FR-2015-02-18/html/2015-03183.htm) |
+| Solar II (China/Taiwan 2015) | Taiwan | AD | All others | 19.5% | order | 2015-02-10 | [source](https://www.govinfo.gov/content/pkg/FR-2015-02-18/html/2015-03179.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Cambodia | AD | All others | 125.37% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11588.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Cambodia | CVD | All others | 534.67% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11589.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Malaysia | AD | All others | 8.59% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11588.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Malaysia | CVD | All others | 34.09% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11589.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Thailand | AD | All others | 111.45% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11588.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Thailand | CVD | All others | 255.39% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11589.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Vietnam | AD | Vietnam-wide entity | 271.28% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11588.htm) |
+| Solar III (Cambodia/Malaysia/Thailand/Vietnam 2025) | Vietnam | CVD | All others | 124.57% | order | 2025-06-17 | [source](https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11589.htm) |
+| Solar IV (India/Indonesia/Laos 2026) | India | AD | All others | 123.04% | final | 2026-09-11 | [source](https://www.federalregister.gov/documents/2026/09/16/2026-18945/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-india-final) |
+| Solar IV (India/Indonesia/Laos 2026) | India | CVD | All others | 126.09% | final | 2026-09-11 | [source](https://www.federalregister.gov/documents/2026/09/16/2026-18947/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-india-final) |
+| Solar IV (India/Indonesia/Laos 2026) | Indonesia | AD | All others | 94.36% | final | 2026-09-11 | [source](https://www.federalregister.gov/documents/2026/09/16/2026-18939/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-indonesia-final) |
+| Solar IV (India/Indonesia/Laos 2026) | Indonesia | CVD | All others | 73.2% | final | 2026-09-11 | [source](https://www.federalregister.gov/documents/2026/09/16/2026-18940/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-indonesia-final) |
+| Solar IV (India/Indonesia/Laos 2026) | Laos | AD | Laos-wide entity | 65.43% | final | 2026-09-11 | [source](https://www.federalregister.gov/documents/2026/09/16/2026-18941/crystalline-silicon-photovoltaic-cells-whether-or-not-assembled-into-modules-from-the-lao-peoples) |
+| Solar IV (India/Indonesia/Laos 2026) | Laos | CVD | All others | 82.03% | final | 2026-09-11 | [source](https://www.govinfo.gov/content/pkg/FR-2026-09-16/html/2026-18942.htm) |
+
+### US manufacturing capacity by stage (sum of facility nameplates on file)
+
+| Stage | Operating | Under construction | Announced | Cancelled, closed or paused |
+|---|---|---|---|---|
+| battery_cell (GWh/yr) | 95.0 | 45.0 | 100.0 | 31.0 |
+| cell (GW/yr) | 9.4 | 14.9 | 9.6 | 0.0 |
+| ingot (GW/yr) | 0.0 | 3.3 | 0.0 | 0.0 |
+| module (GW/yr) | 61.4 | 0.0 | 6.7 | 2.1 |
+| polysilicon (metric_tons/yr) | 40000.0 | 20000.0 | 0.0 | 0.0 |
+| wafer (GW/yr) | 0.0 | 3.3 | 5.0 | 0.0 |
+
+Pending: 7 placeholder rows with no rate yet (for example AD/CVD orders not yet published); see `notes` in the CSV and `docs/cases.md`.
+
+Rows: 222 duty rates, 66 facilities. Every row carries a public source URL.
+
+<!-- summary:end -->
+
+## How to use it
+
+```bash
+git clone https://github.com/builtbyaarya/us-solar-trade-tracker
+cd us-solar-trade-tracker
+python3 scripts/validate.py      # every row checked
+python3 scripts/build.py         # rebuild tracker.json and the README tables
+```
+
+Load it in Python:
+
+```python
+import pandas as pd
+duties = pd.read_csv("data/duties.csv")
+duties[(duties.case_group.str.startswith("Solar IV")) & (duties.duty_type == "AD")]
+```
+
+The same data drives the [Solar Factory game](https://github.com/builtbyaarya/solar-factory-game), where you try to build a US solar or battery factory and survive to 2030.
+
+## Contributing
+
+Open an issue or a pull request with the source document. A row without a public `source_url` will not be merged. Corrections to rates should quote the notice's table and page.
+
+## Licence
+
+Code: [MIT](LICENSE). Data (`data/`): [CC BY 4.0](data/LICENSE). Please credit "US Solar Trade Tracker (builtbyaarya), CC BY 4.0".
