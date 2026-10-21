@@ -1,0 +1,18 @@
+# Official pages the twice-weekly updater re-checks (one URL per line; # comments ignored)
+# Duties
+https://www.federalregister.gov/api/v1/documents.json?conditions[term]=%22crystalline+silicon+photovoltaic%22&order=newest&per_page=20
+https://www.trade.gov/ec-news-and-updates
+https://www.usitc.gov/press_room/news_release
+https://ustr.gov/issue-areas/enforcement/section-301-investigations/section-301-china
+# Factories (public trackers and the biggest announcers)
+https://seia.org/research-resources/solar-market-insight-report/
+https://investor.firstsolar.com/news/default.aspx
+https://us.qcells.com/newsroom/
+https://www.canadiansolar.com/press-release/
+https://www.canarymedia.com/articles/clean-energy-manufacturing
+https://www.pv-magazine.com/category/markets-policy/
+https://e2.org/reports/
+https://atlaspolicy.com/clean-economy-tracker/
+https://www.solarpowerworldonline.com/tag/manufacturing/
+https://ir.t1energy.com/news-events/press-releases
+https://news.lgensol.com/
