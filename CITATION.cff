@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: US Solar Trade Tracker
+message: If you use this dataset, please cite it as below and link to the repository.
+type: dataset
+authors:
+  - given-names: Aarya
+    alias: builtbyaarya
+repository-code: https://github.com/builtbyaarya/us-solar-trade-tracker
+license: CC-BY-4.0
+version: "2026.10.21"
+date-released: "2026-10-21"
+keywords:
+  - solar
+  - antidumping
+  - countervailing duty
+  - manufacturing capacity
+  - trade policy
+abstract: >-
+  An open, row-by-row sourced dataset of US antidumping and countervailing duty rates on
+  crystalline silicon solar cells and modules (by case, country, company, stage and date,
+  AD and CVD separately, with Section 201 and 301 layers) and of US solar and battery
+  manufacturing capacity by stage with status and cancellations. Code is MIT licensed.
