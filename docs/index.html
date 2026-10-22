@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US Solar Trade Tracker</title>
+<meta name="description" content="Explore US antidumping and countervailing duty rates on solar cells and modules, and US solar and battery factory capacity by stage. Every row links to its public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBFAF7; --ink: #17202A; --muted: #5F6B7A; --rule: #D9D6CF; --panel: #FFFFFF;
+    --ad: #1F5FA8;   /* antidumping: blue */
+    --cvd: #C8742A;  /* countervailing: copper */
+    --tariff: #6B7280; --ok: #2F855A; --warn: #B7791F; --bad: #C53030;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "IBM Plex Sans", system-ui, sans-serif; font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
+  h1 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 2rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+  h2 { font-family: "IBM Plex Serif", Georgia, serif; font-weight: 600; font-size: 1.3rem; margin: 36px 0 12px; }
+  p { max-width: 70ch; margin: 0 0 12px; }
+  a { color: var(--ad); }
+  .muted { color: var(--muted); }
+  .note { background: #FFF7E6; border: 1px solid #F0D9A6; border-radius: 6px; padding: 10px 14px; font-size: .92rem; max-width: none; }
+  .toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: end; margin: 14px 0; }
+  .toolbar label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 3px; }
+  select, input[type=search] { font: inherit; padding: 8px 10px; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); color: var(--ink); min-width: 160px; }
+  input[type=search] { min-width: 220px; }
+  .count { font-size: .9rem; color: var(--muted); align-self: center; margin-left: auto; }
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; font-size: .92rem; }
+  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { background: #F3F1EC; font-weight: 600; cursor: pointer; user-select: none; white-space: nowrap; position: sticky; top: 0; }
+  th[data-sort]::after { content: " \2195"; color: var(--muted); font-size: .8em; }
+  th.asc::after { content: " \2191"; } th.desc::after { content: " \2193"; }
+  td.num { font-family: var(--mono); text-align: right; white-space: nowrap; }
+  td .pill { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: .78rem; font-weight: 600; color: #fff; }
+  .pill.AD { background: var(--ad); } .pill.CVD { background: var(--cvd); } .pill.tariff { background: var(--tariff); }
+  .status { font-size: .8rem; font-weight: 600; }
+  .status.operating, .status.expanding, .status.ramping, .status.commissioning { color: var(--ok); }
+  .status.under_construction, .status.announced { color: var(--warn); }
+  .status.cancelled, .status.closed, .status.paused { color: var(--bad); }
+  .tablewrap { overflow: auto; max-height: 560px; border-radius: 6px; }
+  .stack { display: grid; grid-template-columns: 140px 1fr 150px; gap: 10px 14px; align-items: center; margin: 6px 0; font-size: .92rem; }
+  .stack .bar { display: flex; height: 18px; border-radius: 3px; overflow: hidden; background: #ECEAE4; }
+  .stack .bar i { display: block; height: 100%; }
+  .stack .bar i.ad { background: var(--ad); } .stack .bar i.cvd { background: var(--cvd); }
+  .stack .v { font-family: var(--mono); text-align: right; white-space: nowrap; }
+  .legend { font-size: .85rem; color: var(--muted); margin-bottom: 8px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: 4px; }
+  .cap { display: grid; grid-template-columns: 180px 1fr 120px; gap: 8px 14px; align-items: center; font-size: .92rem; margin: 6px 0; }
+  .cap .bar { display: flex; height: 18px; border-radius: 3px; overflow: hidden; background: #ECEAE4; }
+  .cap .bar i { display: block; height: 100%; }
+  .cap i.op { background: var(--ok); } .cap i.uc { background: var(--warn); } .cap i.an { background: #D6C48F; } .cap i.cx { background: var(--bad); }
+  .foot { margin-top: 40px; border-top: 1px solid var(--rule); padding-top: 14px; font-size: .88rem; color: var(--muted); }
+  @media (max-width: 640px) { .stack, .cap { grid-template-columns: 110px 1fr 90px; } h1 { font-size: 1.6rem; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>US Solar Trade Tracker</h1>
+  <p class="muted">Duty rates on imported solar cells and modules, and US solar and battery factory capacity by stage. Every row links to the document it came from. <span id="gen"></span></p>
+  <p class="note">Not legal or trade advice. Rates change through orders, reviews and court remands; announced capacity is often not built. Check the linked source before relying on a number. Data: CC BY 4.0. <a href="https://github.com/builtbyaarya/us-solar-trade-tracker">Repository and methodology</a>.</p>
+
+  <h2>The duty stack by country</h2>
+  <p class="muted">Antidumping and countervailing duties apply separately to the same entered value, so the bar is what Customs collects per dollar of declared value, at the latest stage on file for the all-others or country-wide row. Section 201 expired in February 2026; Section 301 (50% on China) is shown as its own row.</p>
+  <div class="legend"><i style="background:var(--ad)"></i>Antidumping &nbsp; <i style="background:var(--cvd)"></i>Countervailing</div>
+  <div id="stack"></div>
+
+  <h2>Duty rates</h2>
+  <div class="toolbar">
+    <div><label for="f-case">Case</label><select id="f-case"><option value="">All cases</option></select></div>
+    <div><label for="f-country">Country</label><select id="f-country"><option value="">All countries</option></select></div>
+    <div><label for="f-type">Instrument</label><select id="f-type"><option value="">AD, CVD and tariffs</option><option>AD</option><option>CVD</option><option>Section 201</option><option>Section 301</option></select></div>
+    <div><label for="f-stage">Stage</label><select id="f-stage"><option value="">All stages</option></select></div>
+    <div><label for="f-q">Search company or notes</label><input type="search" id="f-q" placeholder="e.g. Trina, all others, critical"></div>
+    <div class="count" id="d-count"></div>
+  </div>
+  <div class="tablewrap"><table id="duties"><thead><tr>
+    <th data-sort="case_group">Case</th><th data-sort="country">Country</th><th data-sort="company">Company</th><th data-sort="duty_type">Type</th><th data-sort="rate_pct" class="num">Rate</th><th data-sort="rate_stage">Stage</th><th data-sort="determination_date">Signed</th><th>Notes</th><th>Source</th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <h2>US manufacturing capacity by stage</h2>
+  <p class="muted">Sum of the nameplate figures on file, by status. Polysilicon is in tonnes and batteries in GWh, so each stage is on its own scale.</p>
+  <div class="legend"><i class="op" style="background:var(--ok)"></i>Operating &nbsp; <i style="background:var(--warn)"></i>Under construction &nbsp; <i style="background:#D6C48F"></i>Announced &nbsp; <i style="background:var(--bad)"></i>Cancelled, closed or paused</div>
+  <div id="cap"></div>
+
+  <h2>Facilities</h2>
+  <div class="toolbar">
+    <div><label for="g-stage">Stage</label><select id="g-stage"><option value="">All stages</option></select></div>
+    <div><label for="g-status">Status</label><select id="g-status"><option value="">All statuses</option></select></div>
+    <div><label for="g-state">State</label><select id="g-state"><option value="">All states</option></select></div>
+    <div><label for="g-q">Search company or notes</label><input type="search" id="g-q" placeholder="e.g. Qcells, cancelled"></div>
+    <div class="count" id="g-count"></div>
+  </div>
+  <div class="tablewrap"><table id="facts"><thead><tr>
+    <th data-sort="company">Company</th><th data-sort="facility_name">Facility</th><th data-sort="state">State</th><th data-sort="stage">Stage</th><th data-sort="capacity_value" class="num">Capacity</th><th data-sort="status">Status</th><th data-sort="status_date">As of</th><th>Notes</th><th>Source</th>
+  </tr></thead><tbody></tbody></table></div>
+
+  <div class="foot">US Solar Trade Tracker. Data CC BY 4.0, code MIT. Built from Federal Register notices, Commerce and USITC documents, company releases and public trackers; see <a href="https://github.com/builtbyaarya/us-solar-trade-tracker/blob/main/docs/methodology.md">the methodology</a>. Not legal, trade or investment advice.</div>
+</div>
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const short = u => { try { const h = new URL(u).hostname.replace(/^www\./, ""); return h; } catch { return "source"; } };
+let D = { duties: [], factories: [] };
+
+async function load() {
+  const r = await fetch("../data/tracker.json"); D = await r.json();
+  $("#gen").textContent = `Generated ${D.generated}; ${D.duties.length} duty rows, ${D.factories.length} facility rows.`;
+  fill("#f-case", uniq(D.duties.map(d => d.case_group))); fill("#f-country", uniq(D.duties.map(d => d.country))); fill("#f-stage", uniq(D.duties.map(d => d.rate_stage)));
+  fill("#g-stage", uniq(D.factories.map(f => f.stage))); fill("#g-status", uniq(D.factories.map(f => f.status))); fill("#g-state", uniq(D.factories.map(f => f.state)));
+  stack(); cap(); renderDuties(); renderFacts();
+}
+function uniq(a) { return [...new Set(a.filter(Boolean))].sort(); }
+function fill(sel, vals) { const s = $(sel); vals.forEach(v => { const o = document.createElement("option"); o.textContent = v; s.appendChild(o); }); }
+
+function stack() {
+  const rank = { preliminary: 1, final: 2, "amended final": 3, order: 4, review: 5 };
+  const best = {};
+  D.duties.forEach(d => {
+    if (!d.rate_pct) return;
+    const c = d.company.toLowerCase();
+    if (!(c.startsWith("all other") || c.includes("wide"))) return;
+    if (d.duty_type !== "AD" && d.duty_type !== "CVD") return;
+    const k = d.country;
+    best[k] = best[k] || {};
+    const r = (rank[d.rate_stage] || 0) + (d.effective_date || "");
+    if (!best[k][d.duty_type] || r > best[k][d.duty_type].r) best[k][d.duty_type] = { r, v: +d.rate_pct, stage: d.rate_stage, case: d.case_group };
+  });
+  const rows = Object.entries(best).map(([c, v]) => ({ c, ad: v.AD ? v.AD.v : 0, cvd: v.CVD ? v.CVD.v : 0, stage: (v.AD || v.CVD).stage, case: (v.AD || v.CVD).case })).sort((a, b) => (b.ad + b.cvd) - (a.ad + a.cvd));
+  const max = Math.max(...rows.map(r => r.ad + r.cvd), 1);
+  const s301 = D.duties.find(d => d.duty_type === "Section 301" && d.rate_pct);
+  let html = rows.map(r => `<div class="stack"><div title="${esc(r.case)}">${esc(r.c)}<div class="muted" style="font-size:.78rem">${esc(r.stage)}</div></div><div class="bar"><i class="ad" style="width:${r.ad / max * 100}%" title="AD ${r.ad}%"></i><i class="cvd" style="width:${r.cvd / max * 100}%" title="CVD ${r.cvd}%"></i></div><div class="v">${r.ad}% + ${r.cvd}%</div></div>`).join("");
+  if (s301) html += `<div class="stack"><div>China, Section 301<div class="muted" style="font-size:.78rem">tariff, since ${esc(s301.effective_date)}</div></div><div class="bar"><i style="width:${+s301.rate_pct / max * 100}%;background:var(--tariff)"></i></div><div class="v">${s301.rate_pct}% (on top of AD/CVD)</div></div>`;
+  $("#stack").innerHTML = html;
+}
+
+function cap() {
+  const agg = {};
+  D.factories.forEach(f => { const v = parseFloat(f.capacity_value); if (isNaN(v)) return; const k = `${f.stage} (${f.capacity_unit})`; agg[k] = agg[k] || { op: 0, uc: 0, an: 0, cx: 0 };
+    const g = ["operating", "expanding", "ramping", "commissioning"].includes(f.status) ? "op" : f.status === "under_construction" ? "uc" : f.status === "announced" ? "an" : "cx"; agg[k][g] += v; });
+  $("#cap").innerHTML = Object.entries(agg).sort().map(([k, v]) => { const t = v.op + v.uc + v.an + v.cx || 1; return `<div class="cap"><div>${esc(k)}</div><div class="bar"><i class="op" style="width:${v.op / t * 100}%" title="operating ${v.op}"></i><i class="uc" style="width:${v.uc / t * 100}%" title="under construction ${v.uc}"></i><i class="an" style="width:${v.an / t * 100}%" title="announced ${v.an}"></i><i class="cx" style="width:${v.cx / t * 100}%" title="cancelled/closed/paused ${v.cx}"></i></div><div class="v" style="font-family:var(--mono);text-align:right">${fmt(v.op)} op / ${fmt(t)} total</div></div>`; }).join("");
+}
+const fmt = n => n >= 1000 ? n.toLocaleString("en-US", { maximumFractionDigits: 0 }) : n.toLocaleString("en-US", { maximumFractionDigits: 1 });
+
+let dsort = { k: "determination_date", dir: -1 }, gsort = { k: "capacity_value", dir: -1 };
+function sorter(k, dir) { return (a, b) => { let x = a[k], y = b[k]; const nx = parseFloat(x), ny = parseFloat(y); if (!isNaN(nx) && !isNaN(ny)) { x = nx; y = ny; } else { x = String(x || ""); y = String(y || ""); } return (x > y ? 1 : x < y ? -1 : 0) * dir; }; }
+
+function renderDuties() {
+  const c = $("#f-case").value, co = $("#f-country").value, t = $("#f-type").value, st = $("#f-stage").value, q = $("#f-q").value.toLowerCase();
+  const rows = D.duties.filter(d => (!c || d.case_group === c) && (!co || d.country === co) && (!t || d.duty_type === t) && (!st || d.rate_stage === st) && (!q || (d.company + " " + d.notes + " " + d.case_number).toLowerCase().includes(q))).sort(sorter(dsort.k, dsort.dir));
+  $("#d-count").textContent = `${rows.length} of ${D.duties.length} rows`;
+  $("#duties tbody").innerHTML = rows.map(d => `<tr><td>${esc(d.case_group)}<div class="muted" style="font-size:.78rem">${esc(d.case_number)}</div></td><td>${esc(d.country)}</td><td>${esc(d.company)}</td><td><span class="pill ${d.duty_type === "AD" || d.duty_type === "CVD" ? d.duty_type : "tariff"}">${esc(d.duty_type)}</span></td><td class="num">${d.rate_pct ? d.rate_pct + "%" : "<span class=muted>pending</span>"}</td><td>${esc(d.rate_stage)}</td><td>${esc(d.determination_date)}</td><td style="max-width:320px;font-size:.85rem">${esc(d.notes)}</td><td><a href="${esc(d.source_url)}" target="_blank" rel="noopener" title="${esc(d.source_title)}">${short(d.source_url)}</a></td></tr>`).join("");
+}
+function renderFacts() {
+  const st = $("#g-stage").value, s = $("#g-status").value, state = $("#g-state").value, q = $("#g-q").value.toLowerCase();
+  const rows = D.factories.filter(f => (!st || f.stage === st) && (!s || f.status === s) && (!state || f.state === state) && (!q || (f.company + " " + f.facility_name + " " + f.notes).toLowerCase().includes(q))).sort(sorter(gsort.k, gsort.dir));
+  $("#g-count").textContent = `${rows.length} of ${D.factories.length} rows`;
+  $("#facts tbody").innerHTML = rows.map(f => `<tr><td>${esc(f.company)}</td><td>${esc(f.facility_name)}<div class="muted" style="font-size:.78rem">${esc(f.city)}</div></td><td>${esc(f.state)}</td><td>${esc(f.stage)}</td><td class="num">${f.capacity_value ? fmt(+f.capacity_value) + " " + esc(f.capacity_unit) : "<span class=muted>n/a</span>"}</td><td><span class="status ${esc(f.status)}">${esc(f.status.replace("_", " "))}</span></td><td>${esc(f.status_date)}</td><td style="max-width:320px;font-size:.85rem">${esc(f.notes)}</td><td><a href="${esc(f.source_url)}" target="_blank" rel="noopener" title="${esc(f.source_title)}">${short(f.source_url)}</a></td></tr>`).join("");
+}
+["#f-case", "#f-country", "#f-type", "#f-stage"].forEach(s => $(s).addEventListener("change", renderDuties)); $("#f-q").addEventListener("input", renderDuties);
+["#g-stage", "#g-status", "#g-state"].forEach(s => $(s).addEventListener("change", renderFacts)); $("#g-q").addEventListener("input", renderFacts);
+document.querySelectorAll("#duties th[data-sort]").forEach(th => th.addEventListener("click", () => { const k = th.dataset.sort; dsort = { k, dir: dsort.k === k ? -dsort.dir : 1 }; document.querySelectorAll("#duties th").forEach(x => x.classList.remove("asc", "desc")); th.classList.add(dsort.dir > 0 ? "asc" : "desc"); renderDuties(); }));
+document.querySelectorAll("#facts th[data-sort]").forEach(th => th.addEventListener("click", () => { const k = th.dataset.sort; gsort = { k, dir: gsort.k === k ? -gsort.dir : 1 }; document.querySelectorAll("#facts th").forEach(x => x.classList.remove("asc", "desc")); th.classList.add(gsort.dir > 0 ? "asc" : "desc"); renderFacts(); }));
+load().catch(e => { $("#gen").textContent = "Could not load data/tracker.json (serve the repository over http, not file://)."; });
+</script>
+</body>
+</html>

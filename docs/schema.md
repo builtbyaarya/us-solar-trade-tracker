@@ -11,7 +11,7 @@
 | duty_type | Which instrument | `AD`, `CVD`, `Section 201`, `Section 301`, `IEEPA`, `Section 232` |
 | rate_pct | Rate in percent, number only | 0 to 1000, blank if the source gives no number |
 | rate_stage | How far the case had got when this rate was published | `preliminary`, `final`, `amended final`, `order`, `review`, `tariff`, `scope` |
-| determination_date | Date of the notice or decision | YYYY-MM-DD, or YYYY-MM / YYYY when the source gives no more |
+| determination_date | The date the Commerce or ITC document was signed ("Dated:" line of the notice); announcement and publication dates go in notes | YYYY-MM-DD, or YYYY-MM / YYYY when the source gives no more |
 | effective_date | Date the rate applied from (cash deposits), if the notice says | YYYY-MM-DD, or YYYY-MM / YYYY when the source gives no more |
 | source_title | Title of the document | text |
 | source_url | Link to the document the rate was read from | required |
