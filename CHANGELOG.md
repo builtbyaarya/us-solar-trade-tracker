@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-10-26
+- Made public, with the page on GitHub Pages: the repository root now forwards to `docs/`, so https://builtbyaarya.github.io/us-solar-trade-tracker/ opens the tracker. "Last checked" dates brought up to 26 Oct 2026 (the daily job has found no new Federal Register solar notice since 16 Sep 2026); the README and `docs/cases.md` now say the job runs daily. No change to any number; `data/` regenerated with the new date only.
+
 ## 2026-10-23
 - `docs/index.html` rebuilt for industry readers: one headline landed cost per origin with a plain verdict against US-assembled, the duty stack readable layer by layer with hover and tap explanations (what the layer is, the rate, the source and date), an "Import or buy US-assembled?" comparison, and a one-page print summary. The map now zooms smoothly to the Southeast Asia cluster with labels that do not overlap. No change to any number, table, filter, link or source; `data/` untouched.
 

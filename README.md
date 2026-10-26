@@ -7,7 +7,7 @@ An open, sourced dataset of two things that decide whether a solar or battery fa
 1. **Duty rates** on imported crystalline silicon solar cells and modules: every antidumping (AD) and countervailing duty (CVD) rate by case, country, company, stage and date, with AD and CVD kept separate and every row linked to the Federal Register notice, Commerce fact sheet or ITC document it comes from. Section 201 and 301 tariff layers are included as their own rows so the full stack is visible.
 2. **US manufacturing capacity** for solar and batteries by stage (polysilicon, ingot, wafer, cell, module, battery cells and packs) with each facility's announced size, status and status date, including pauses, closures and cancellations.
 
-Maintained by a mechanical engineering student who got tired of rebuilding the same spreadsheet. Updated twice a week by a scheduled job that re-reads the official pages in `docs/watchlist.txt`; nothing is added without a public source.
+Maintained by a mechanical engineering student who got tired of rebuilding the same spreadsheet. Checked every day by a scheduled job that re-reads the official pages in `docs/watchlist.txt`; nothing is added without a public source.
 
 > **Not legal or trade advice.** Duty rates change through reviews, orders and court remands, and announced capacity is often not built. Verify every number against its `source_url` before you rely on it. See [DISCLAIMER.md](DISCLAIMER.md).
 
@@ -33,7 +33,7 @@ Maintained by a mechanical engineering student who got tired of rebuilding the s
 ## Summary
 
 <!-- summary:start -->
-_Summary generated 2026-10-21 from the CSVs; the CSVs are the source of truth._
+_Summary generated 2026-10-26 from the CSVs; the CSVs are the source of truth._
 
 ### Duty rates (latest stage on file, all-others and country-wide rows)
 
@@ -80,7 +80,7 @@ Rows: 222 duty rates, 66 facilities. Every row carries a public source URL.
 
 ## Explore it in a browser
 
-`docs/index.html` is a single page that loads `data/tracker.json`: filter duties by case, country and instrument, see AD and CVD side by side for each country, and sort facilities by stage and status. Served at https://builtbyaarya.github.io/us-solar-trade-tracker/ once the repository is public; locally, run `python3 -m http.server` in the repository root and open `http://localhost:8000/docs/`.
+`docs/index.html` is a single page that loads `data/tracker.json`: filter duties by case, country and instrument, see AD and CVD side by side for each country, and sort facilities by stage and status. Served at https://builtbyaarya.github.io/us-solar-trade-tracker/ (GitHub Pages); locally, run `python3 -m http.server` in the repository root and open `http://localhost:8000/docs/`.
 
 ## How to use it
 
