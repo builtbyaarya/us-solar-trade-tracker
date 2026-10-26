@@ -23,7 +23,8 @@ Maintained by a mechanical engineering student who got tired of rebuilding the s
 | `docs/factories.md` | The capacity picture, known gaps and data-quality flags |
 | `docs/methodology.md` | What each field means in trade-law terms, how rows are collected and checked, and the references |
 | `docs/verification/` | Independent verification reports, one per release |
-| `docs/index.html` | A browser explorer for the data (filter, sort, see the duty stack per country) |
+| `docs/index.html` | A browser explorer for the data: landed cost per watt by origin on a map, the duty stack per country, and the two tables with filters and sorting |
+| `data/landed_cost_inputs.json` | Public spot prices, freight, tariff layers and Section 45X amounts used by the landed-cost tab, each with its source and date |
 | `docs/watchlist.txt` | The official pages the updater re-checks |
 | `scripts/validate.py` | Checks columns, allowed values, dates and that every row has a source |
 | `scripts/build.py` | Rebuilds `tracker.json` and the summary tables below |
