@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-02
+- Landed-cost inputs refreshed: Drewry Shanghai to Los Angeles 40 ft rate $7,514 (29 Oct 2026, was $8,007), so derived freight is now $0.021/W (was $0.022/W). InfoLink TOPCon module averages re-checked for the week to 28 Oct 2026 and unchanged (China $0.114/W, Southeast Asia made $0.270/W FOB, India assembled $0.135/W FOB, US assembled $0.310/W DDP); their as-of dates moved to 28 Oct. No duty rate changed.
+
 ## 2026-10-26
 - Made public, with the page on GitHub Pages: the repository root now forwards to `docs/`, so https://builtbyaarya.github.io/us-solar-trade-tracker/ opens the tracker. "Last checked" dates brought up to 26 Oct 2026 (the daily job has found no new Federal Register solar notice since 16 Sep 2026); the README and `docs/cases.md` now say the job runs daily. No change to any number; `data/` regenerated with the new date only.
 
