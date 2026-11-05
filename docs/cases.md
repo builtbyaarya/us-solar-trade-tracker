@@ -2,7 +2,7 @@
 
 Plain-English status of every case in `data/duties.csv`, with the document each statement comes from. Updated by the daily job; the date in the first line is the last check.
 
-_Last checked: 2026-10-26._
+_Last checked: 2026-11-05._
 
 ## Case status
 
@@ -10,8 +10,8 @@ _Last checked: 2026-10-26._
 2. Solar IV prelim AD announced 2026-04-23, published 2026-04-28 (FR Docs 2026-08192/08193/08194): https://www.trade.gov/preliminary-determinations-antidumping-duty-investigations-crystalline-silicon-photovoltaic-cells
 3. Solar IV amended prelim AD: Laos raised 22.46 to 33.57 (91 FR 30619, 2026-05-26) https://www.govinfo.gov/content/pkg/FR-2026-05-26/html/2026-10426.htm ; Indonesia Blue Sky raised to 94.36 AFA (91 FR 31429, 2026-05-27) https://www.govinfo.gov/content/pkg/FR-2026-05-27/html/2026-10519.htm
 4. Solar IV finals announced 2026-09-11, published 2026-09-16 (91 FR 58633-58662, six notices). Final AD: India 123.04 (cash deposit 107.17), Indonesia 94.36, Laos 65.43 (cash deposit 65.03). Final CVD: India 126.09; Indonesia 173.70 (Blue Sky) / 73.20 (REC, all others); Laos 82.03 (Solarspace, all others) / 153.67 (VSUN). Fact sheet: https://www.trade.gov/final-affirmative-determinations-antidumping-duty-and-countervailing-duty-investigations-0
-5. Solar IV ITC final vote 2026-10-14: affirmative 5-0 (Negatu not participating), Inv. 701-TA-772-774 and 731-TA-1756-1758; ITC critical circumstances negative for India and Laos, affirmative for Indonesia: https://www.usitc.gov/press_room/news_release/2026/er1014_69351.htm
-6. Solar IV PENDING: Commerce AD and CVD orders not yet in the Federal Register as of 2026-10-26 (expected early Nov 2026, Commerce issues orders within about 7 days of the ITC notification letter). ITC public report Pub. 5804 due by 2026-11-23. Order rows in the CSV are placeholders with blank rates.
+5. Solar IV ITC final vote 2026-10-14: affirmative 5-0 (Negatu not participating), Inv. 701-TA-772-774 and 731-TA-1756-1758; ITC critical circumstances negative for India and Laos, affirmative for Indonesia: https://www.usitc.gov/press_room/news_release/2026/er1014_69351.htm . The ITC determinations notice (material injury for all three countries; issued 2026-11-02) was published 2026-11-05 at 91 FR 69865: https://www.govinfo.gov/content/pkg/FR-2026-11-05/pdf/2026-22565.pdf
+6. Solar IV PENDING: Commerce AD and CVD orders not yet in the Federal Register as of 2026-11-05 (expected early Nov 2026, Commerce issues orders within about 7 days of the ITC notification letter). ITC public report Pub. 5804 due by 2026-11-23. Order rows in the CSV are placeholders with blank rates.
 7. Solar III (Cambodia/Malaysia/Thailand/Vietnam; A-555-003/C-555-004, A-557-830/C-557-831, A-549-851/C-549-852, A-552-841/C-552-842). Petition April 2024. Prelim CVD 2024-10-01: https://trade.gov/commerce-preliminary-countervailing-duty-investigation-crystalline-photovoltaic-cells-cambodia ; prelim AD 2024-11-29: https://www.trade.gov/preliminary-determinations-antidumping-duty-duty-investigations-crystalline-photovoltaic-cells
 8. Solar III finals 2025-04-21: https://trade.gov/final-affirmative-determinations-antidumping-and-countervailing-duty-investigations-crystalline ; ITC notified Commerce 2025-06-09 (injury: Malaysia, Vietnam; threat: Cambodia, Thailand; Vietnam critical circumstances negative).
 9. Solar III orders published 2025-06-24: AD 90 FR 26786 https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11588.htm ; CVD 90 FR 26791 https://www.govinfo.gov/content/pkg/FR-2025-06-24/html/2025-11589.htm . Vietnam AD and Malaysia/Thailand CVD rates were amended in the order notices (ministerial errors); the CSV carries both the April final and the June order values. Hanwha Q Cells Malaysia has a 0.00 AD margin (excluded from the AD order). First administrative reviews (anniversary month June) will be the next rate change; not yet tracked here.

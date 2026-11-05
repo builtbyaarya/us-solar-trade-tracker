@@ -33,7 +33,7 @@ Maintained by a mechanical engineering student who got tired of rebuilding the s
 ## Summary
 
 <!-- summary:start -->
-_Summary generated 2026-10-26 from the CSVs; the CSVs are the source of truth._
+_Summary generated 2026-11-05 from the CSVs; the CSVs are the source of truth._
 
 ### Duty rates (latest stage on file, all-others and country-wide rows)
 

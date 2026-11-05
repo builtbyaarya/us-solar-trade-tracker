@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-05
+- Solar IV (India, Indonesia, Laos): the ITC final determinations notice is now in the Federal Register (91 FR 69865, 5 Nov 2026; issued 2 Nov 2026): material injury from all three countries, and imports under critical circumstances likely to undermine the orders for Indonesia only. Recorded in `docs/cases.md`. Commerce has not yet published the AD and CVD orders, so those rows keep a blank rate. No duty rate changed.
+
 ## 2026-11-02
 - Landed-cost inputs refreshed: Drewry Shanghai to Los Angeles 40 ft rate $7,514 (29 Oct 2026, was $8,007), so derived freight is now $0.021/W (was $0.022/W). InfoLink TOPCon module averages re-checked for the week to 28 Oct 2026 and unchanged (China $0.114/W, Southeast Asia made $0.270/W FOB, India assembled $0.135/W FOB, US assembled $0.310/W DDP); their as-of dates moved to 28 Oct. No duty rate changed.
 
